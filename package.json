@@ -1,0 +1,49 @@
+{
+  "name": "images-pro-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src/*.ts ",
+    "lint:fix": "eslint src/*.ts --fix ",
+    "prettier": "prettier --config .prettierrc src/ --write",
+    "build": "tsc",
+    "start": "nodemon build/app.js",
+    "jasmine": "jasmine",
+    "test": "npm run build && npm run jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahmed102952/Images-pro-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahmed102952/Images-pro-api/issues"
+  },
+  "homepage": "https://github.com/Ahmed102952/Images-pro-api#readme",
+  "dependencies": {
+    "@types/sharp": "^0.30.2",
+    "express": "^4.18.1",
+    "jasmine": "^4.1.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "nodemon": "^2.0.16",
+    "sharp": "^0.30.4",
+    "supertest": "^6.2.3"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.4.2",
+    "@types/express": "^4.17.13",
+    "@types/jasmine": "^4.0.3",
+    "@types/node": "^17.0.33",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2",
+    "tsc": "^2.0.4"
+  }
+}
