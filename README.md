@@ -1,5 +1,5 @@
 # Images processing api
-## start by using: 
+## get images api endpoit by:
 ## "localhost:3000/api/images?fileName=\<imageName\>&width=\<width\>?&height=\<height\>"
 
 ## scripts
