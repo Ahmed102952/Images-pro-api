@@ -39,87 +39,49 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
 var fs_1 = require("fs");
 var path_1 = __importDefault(require("path"));
-var sharp_1 = __importDefault(require("sharp"));
-var images = express_1.default.Router();
-images.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var inputFileName, width, height, outputFileName, inputPath, outputPath, err_1;
+var exists_1 = __importDefault(require("../utilites/exists"));
+exports.default = (function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var inputPath, outputPath, width, height;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                inputFileName = "".concat(req.query.fileName, ".jpg");
+                inputPath = path_1.default.resolve(__dirname, "../../assests/full") + "/";
+                outputPath = path_1.default.resolve(__dirname, "../../assests/thum") + "/";
                 width = req.query.width;
                 height = req.query.height;
-                outputFileName = "".concat(req.query.fileName, "-w").concat(width, "_h").concat(height, ".jpg");
-                inputPath = path_1.default.resolve("./build/assests/") + "\\full\\";
-                outputPath = path_1.default.resolve("./build/assests/") + "\\thum\\";
-                return [4 /*yield*/, exists(outputPath + outputFileName)];
-            case 1:
-                if (_a.sent()) {
-                    // checking if the img exists if not send message and stop the function
-                    res.sendFile(outputFileName, { root: outputPath });
+                if (isNaN(parseInt(width)) ||
+                    isNaN(parseInt(height)) ||
+                    width <= 0 ||
+                    height <= 0) {
+                    res.send("Invalid input for height or width");
                     return [2 /*return*/];
                 }
-                return [4 /*yield*/, exists(inputPath + inputFileName)];
-            case 2:
+                return [4 /*yield*/, (0, exists_1.default)(inputPath + req.query.fileName + ".jpg")];
+            case 1:
                 if (!(_a.sent())) {
                     // checking if the img exists if not send message and stop the function
-                    res.send("Can't find image");
+                    res.status(404).send("Invalid input for filename");
                     return [2 /*return*/];
                 }
-                return [4 /*yield*/, exists(outputPath)];
+                return [4 /*yield*/, (0, exists_1.default)(outputPath + req.query.fileName + "-w".concat(width, "_h").concat(height, ".jpg"))];
+            case 2:
+                if (_a.sent()) {
+                    // checking if the required img exists if its exist serve it and stop
+                    res.sendFile(req.query.fileName + "-w".concat(width, "_h").concat(height, ".jpg"), {
+                        root: outputPath,
+                    });
+                    return [2 /*return*/];
+                }
+                return [4 /*yield*/, (0, exists_1.default)(outputPath)];
             case 3:
                 if (!(_a.sent())) {
                     // check if the output dir exists if not make the directory
                     fs_1.promises.mkdir(outputPath);
                 }
-                _a.label = 4;
-            case 4:
-                _a.trys.push([4, 6, , 7]);
-                return [4 /*yield*/, (0, sharp_1.default)(inputPath + inputFileName)
-                        .resize({
-                        width: parseInt(width),
-                        height: parseInt(height),
-                    })
-                        .toFile(outputPath + outputFileName)];
-            case 5:
-                _a.sent();
-                res.sendFile(outputFileName, {
-                    root: outputPath,
-                    Headers: { "content-type": "image/jpg" },
-                });
-                return [3 /*break*/, 7];
-            case 6:
-                err_1 = _a.sent();
-                console.log(err_1);
-                res.send("Faild");
-                return [3 /*break*/, 7];
-            case 7: return [2 /*return*/];
+                next();
+                return [2 /*return*/];
         }
     });
 }); });
-function exists(path) {
-    return __awaiter(this, void 0, void 0, function () {
-        var _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    _b.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, fs_1.promises.access(path)];
-                case 1:
-                    _b.sent();
-                    return [2 /*return*/, true];
-                case 2:
-                    _a = _b.sent();
-                    return [2 /*return*/, false];
-                case 3: return [2 /*return*/];
-            }
-        });
-    });
-}
-exports.default = {
-    images: images,
-    exists: exists,
-};

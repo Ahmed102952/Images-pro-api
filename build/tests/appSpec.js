@@ -43,7 +43,7 @@ var supertest_1 = __importDefault(require("supertest"));
 var app_1 = __importDefault(require("../app"));
 var req = (0, supertest_1.default)(app_1.default);
 describe("Test endpoint responses", function () {
-    it("Test the server", function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("gets the api endpoint", function () { return __awaiter(void 0, void 0, void 0, function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -63,31 +63,7 @@ describe("Test endpoint responses", function () {
                 case 1:
                     res = _a.sent();
                     expect(res.status).toBe(200);
-                    expect(res.headers['content-type']).toBe('image/jpeg');
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("test if the server gets the image", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/api/images?fileName=icelandwaterfal&width=100&height=100")];
-                case 1:
-                    res = _a.sent();
-                    expect(res.status).toBe(404);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-    it("should return status 400 when width or height are wrong value", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var res;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, req.get("/api/images?fileName=icelandwaterfall&width=word&height=100")];
-                case 1:
-                    res = _a.sent();
-                    expect(res.status).toBe(400);
+                    expect(res.headers["content-type"]).toBe("image/jpeg");
                     return [2 /*return*/];
             }
         });

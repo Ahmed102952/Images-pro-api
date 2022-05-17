@@ -13,5 +13,5 @@ app.listen(port, function () {
 app.get("/", function (req, res) {
     res.send("Connected!");
 });
-app.use("/api/images", imagesApi_1.default.images);
+app.use("/api/images", imagesApi_1.default);
 exports.default = app;

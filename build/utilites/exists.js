@@ -35,43 +35,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var path_1 = __importDefault(require("path"));
-var imageProcessing_1 = __importDefault(require("../../../utilites/imageProcessing"));
-var validateParameters_1 = __importDefault(require("../../../middleware/validateParameters"));
-var images = express_1.default.Router();
-images.use("/", validateParameters_1.default, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var inputFileName, width, height, outputFileName, inputPath, outputPath, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+var fs_1 = require("fs");
+//function to check if the file|dir exists
+exports.default = (function (path) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                inputFileName = "".concat(req.query.fileName, ".jpg");
-                width = req.query.width;
-                height = req.query.height;
-                outputFileName = "".concat(req.query.fileName, "-w").concat(width, "_h").concat(height, ".jpg");
-                inputPath = path_1.default.resolve(__dirname, "../../../../assests/full") + "/";
-                outputPath = path_1.default.resolve(__dirname, "../../../../assests/thum") + "/";
-                _a.label = 1;
+                _b.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, fs_1.promises.access(path)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, imageProcessing_1.default)(width, height, inputFileName, inputPath, outputFileName, outputPath)];
+                _b.sent();
+                return [2 /*return*/, true];
             case 2:
-                _a.sent();
-                res.sendFile(outputFileName, {
-                    root: outputPath,
-                    Headers: { "content-type": "image/jpg" },
-                });
-                return [3 /*break*/, 4];
-            case 3:
-                err_1 = _a.sent();
-                res.send("faild");
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                _a = _b.sent();
+                return [2 /*return*/, false];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
-exports.default = images;
